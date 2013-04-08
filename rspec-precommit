@@ -2,7 +2,7 @@
 require 'pty'
 html_path = "rspec_results.html"
 begin
-  PTY.spawn( "rake spec" ) do |stdin, stdout, pid|
+  PTY.spawn( "rspec spec --format h > rspec_results.html" ) do |stdin, stdout, pid|
   begin
     stdin.each { |line| print line }
   rescue Errno::EIO
@@ -23,7 +23,8 @@ pending = html.match(/(\d+) pending/)[0].to_i rescue 0
 
 if errors.zero?
   puts "0 failed! #{examples} run, #{pending} pending"
-  puts "View spec results at #{File.expand_path(html_path)}"
+  # HTML Output when tests ran successfully:
+  # puts "View spec results at #{File.expand_path(html_path)}"
   sleep 1
   exit 0
 else
@@ -31,6 +32,7 @@ else
   puts "View your rspec results at #{File.expand_path(html_path)}"
   puts
   puts "#{errors} failed! #{examples} run, #{pending} pending"
-  `open #{html_path}`
+  # Open HTML Ooutput when tests failed
+  # `open #{html_path}`
   exit 1
 end

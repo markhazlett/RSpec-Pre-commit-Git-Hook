@@ -8,3 +8,5 @@ Usage
 
 1. Copy the pre-commit hook file into your .git/hooks directory.
 2. Try to perform a git commit -m with a failing Rspect test.
+
+If the hook is not getting executed, call ```chmod +x .git/hooks/rspec-precommit``` to make it so!
